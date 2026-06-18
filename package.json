@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
+    "@prisma/client": "^7.8.0",
     "@tailwindcss/vite": "^4",
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-router": "latest",
@@ -23,7 +24,9 @@
     "@tanstack/router-plugin": "latest",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^17.4.2",
     "lucide-react": "^1.20.0",
+    "motion": "^12.40.0",
     "radix-ui": "^1.6.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
@@ -45,6 +48,7 @@
     "jsdom": "^28",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "prisma": "^7.8.0",
     "typescript": "^6",
     "vite": "^8",
     "vitest": "^4"
