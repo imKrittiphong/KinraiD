@@ -11,3 +11,19 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model FoodType {
+  id    Int        @id @default(autoincrement())
+  type  String     @unique
+  label String
+  foods FoodItem[]
+}
+
+model FoodItem {
+  id      Int      @id @default(autoincrement())
+  name    String
+  price   Int
+  typeId  Int
+  type    FoodType @relation(fields: [typeId], references: [id])
+  createdAt DateTime @default(now())
+}
