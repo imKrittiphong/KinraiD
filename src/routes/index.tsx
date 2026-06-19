@@ -41,18 +41,18 @@ function App() {
               </Link>
             </div>
             <div>
-              <Link to="/menu" className="w-full sm:w-auto">
+              <Link to="/menu" className="w-full sm:w-60">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-16 w-full rounded-3xl border-2 px-10 text-xl font-semibold transition-all hover:scale-105 hover:bg-muted/50 active:scale-95"
+                  className="h-16 w-full rounded-3xl border-2 text-xl font-semibold transition-all hover:scale-105 hover:bg-muted/50 active:scale-95"
                 >
                   เลือกเมนูของคุณ
                 </Button>
               </Link>
             </div>
           </div>
-          <div className="my-4 text-xl">
+          <div className="my-4 text-lg">
             <p>หรือ</p>
           </div>
           <div>
@@ -67,7 +67,7 @@ function App() {
             </Link>
           </div>
         </div>
-        <Separator/>
+        <Separator />
         <div className="grid w-full animate-in gap-4 delay-500 duration-700 fill-mode-both fade-in slide-in-from-bottom-12">
           <div className="group rounded-4xl border-2 border-border/50 bg-card p-8 shadow-sm transition-all hover:-translate-y-2 hover:scale-102 hover:border-primary/30">
             <p className="mb-1 text-4xl font-black text-primary">100+</p>
