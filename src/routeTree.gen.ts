@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SoloRouteImport } from './routes/solo'
 import { Route as MenuRouteImport } from './routes/menu'
+import { Route as GroupRouteImport } from './routes/group'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SoloRoute = SoloRouteImport.update({
@@ -23,6 +24,11 @@ const MenuRoute = MenuRouteImport.update({
   path: '/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GroupRoute = GroupRouteImport.update({
+  id: '/group',
+  path: '/group',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/group': typeof GroupRoute
   '/menu': typeof MenuRoute
   '/solo': typeof SoloRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/group': typeof GroupRoute
   '/menu': typeof MenuRoute
   '/solo': typeof SoloRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/group': typeof GroupRoute
   '/menu': typeof MenuRoute
   '/solo': typeof SoloRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/menu' | '/solo'
+  fullPaths: '/' | '/group' | '/menu' | '/solo'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/menu' | '/solo'
-  id: '__root__' | '/' | '/menu' | '/solo'
+  to: '/' | '/group' | '/menu' | '/solo'
+  id: '__root__' | '/' | '/group' | '/menu' | '/solo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GroupRoute: typeof GroupRoute
   MenuRoute: typeof MenuRoute
   SoloRoute: typeof SoloRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/group': {
+      id: '/group'
+      path: '/group'
+      fullPath: '/group'
+      preLoaderRoute: typeof GroupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GroupRoute: GroupRoute,
   MenuRoute: MenuRoute,
   SoloRoute: SoloRoute,
 }

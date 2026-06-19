@@ -11,6 +11,7 @@ import {
   UtensilsCrossed,
   Wallet,
   CheckCircle2,
+  Laugh,
 } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
 import { getFoodItems, getFoodTypes } from "@/server/foodItem.function"
@@ -219,7 +220,7 @@ function SoloModePage() {
                   </h1>
                   <p className="font-medium text-muted-foreground">
                     {isExclusionMode
-                      ? "อะไรก็ได้ไม่มีอยู่จริง"
+                      ? "อะไรก็ได้ไม่มีอยู่จริง..."
                       : "วันนี้อยากกินแบบไหน?"}
                   </p>
                 </div>
@@ -316,7 +317,7 @@ function SoloModePage() {
               <div className="relative">
                 <div className="absolute -inset-10 animate-pulse rounded-full bg-primary/20 blur-3xl" />
                 <div className="relative mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <CheckCircle2 size={64} className="animate-bounce" />
+                  <Laugh size={64} className="animate-bounce" />
                 </div>
               </div>
 
