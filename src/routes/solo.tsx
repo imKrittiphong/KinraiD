@@ -180,9 +180,13 @@ function SoloModePage() {
                     >
                       {opt.label}
                     </span>
-                    <span className="mt-1 text-xs font-bold tracking-widest text-muted-foreground uppercase">
-                      บาท
-                    </span>
+                    {opt.id === "unlimited" ? (
+                      <span className="mt-1" />
+                    ) : (
+                      <span className="mt-1 text-xs font-bold tracking-widest text-muted-foreground uppercase">
+                        บาท
+                      </span>
+                    )}
                   </Label>
                 ))}
               </RadioGroup>

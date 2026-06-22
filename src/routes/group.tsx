@@ -37,7 +37,7 @@ function RouteComponent() {
             <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Button
                 size="lg"
-                className="h-16 w-full rounded-3xl border-2 px-10 text-xl font-semibold transition-all hover:scale-105 active:scale-95"
+                className="h-16 shadow-xl shadow-primary/20 w-full rounded-3xl border-2 px-10 text-xl font-semibold transition-all hover:scale-105 active:scale-95"
               >
                 คัดลอกลิงก์
               </Button>

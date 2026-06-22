@@ -29,7 +29,7 @@ function App() {
         </div>
 
         <div className="w-full animate-in flex-col gap-4 delay-300 duration-700 fill-mode-both fade-in slide-in-from-bottom-8 sm:flex-row sm:justify-center">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2">
             <div>
               <Link to="/solo" className="w-full sm:w-auto">
                 <Button
@@ -55,16 +55,29 @@ function App() {
           <div className="my-4 text-lg">
             <p>หรือ</p>
           </div>
-          <div>
-            <Link to="/group">
-              <Button
-                size="lg"
-                variant="outline"
-                className="h-16 w-full rounded-3xl border-2 px-10 text-xl font-semibold transition-all hover:scale-105 hover:bg-muted/50 active:scale-95"
-              >
-                เลือกกับเพื่อน
-              </Button>
-            </Link>
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <Link to="/group">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-16 w-full rounded-3xl border-2 px-10 text-xl font-semibold transition-all hover:scale-105 hover:bg-muted/50 active:scale-95"
+                >
+                  เลือกกับเพื่อน
+                </Button>
+              </Link>
+            </div>
+            <div>
+              <Link to="/">
+                <Button
+                  size="lg"
+                  variant="default"
+                  className="h-16 w-full bg-secondary-foreground/90 hover:bg-secondary-foreground/50 text-white  rounded-3xl border-2 px-10 text-xl font-semibold transition-all hover:scale-105 active:scale-95"
+                >
+                  ถ่ายเมนู
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
         <Separator />
