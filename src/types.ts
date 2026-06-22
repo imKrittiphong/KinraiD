@@ -11,6 +11,19 @@ export interface FoodItem {
   price: number
 }
 
+export interface Room {
+  id: string
+  code: string
+  ownerName: string
+  members: Member[]
+}
+
+export interface Member {
+  id: string
+  name: string
+  isOwner: boolean
+}
+
 // export interface logResult {
 //     id: number
 //     type: foodType[]

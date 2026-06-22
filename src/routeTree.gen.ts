@@ -11,8 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SoloRouteImport } from './routes/solo'
 import { Route as MenuRouteImport } from './routes/menu'
-import { Route as GroupRouteImport } from './routes/group'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RoomIndexRouteImport } from './routes/room/index'
+import { Route as RoomRoomRoomIdRouteImport } from './routes/room/room.$roomId'
 
 const SoloRoute = SoloRouteImport.update({
   id: '/solo',
@@ -24,49 +25,58 @@ const MenuRoute = MenuRouteImport.update({
   path: '/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GroupRoute = GroupRouteImport.update({
-  id: '/group',
-  path: '/group',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RoomIndexRoute = RoomIndexRouteImport.update({
+  id: '/room/',
+  path: '/room/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoomRoomRoomIdRoute = RoomRoomRoomIdRouteImport.update({
+  id: '/room/room/$roomId',
+  path: '/room/room/$roomId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/group': typeof GroupRoute
   '/menu': typeof MenuRoute
   '/solo': typeof SoloRoute
+  '/room/': typeof RoomIndexRoute
+  '/room/room/$roomId': typeof RoomRoomRoomIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/group': typeof GroupRoute
   '/menu': typeof MenuRoute
   '/solo': typeof SoloRoute
+  '/room': typeof RoomIndexRoute
+  '/room/room/$roomId': typeof RoomRoomRoomIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/group': typeof GroupRoute
   '/menu': typeof MenuRoute
   '/solo': typeof SoloRoute
+  '/room/': typeof RoomIndexRoute
+  '/room/room/$roomId': typeof RoomRoomRoomIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/group' | '/menu' | '/solo'
+  fullPaths: '/' | '/menu' | '/solo' | '/room/' | '/room/room/$roomId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/group' | '/menu' | '/solo'
-  id: '__root__' | '/' | '/group' | '/menu' | '/solo'
+  to: '/' | '/menu' | '/solo' | '/room' | '/room/room/$roomId'
+  id: '__root__' | '/' | '/menu' | '/solo' | '/room/' | '/room/room/$roomId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  GroupRoute: typeof GroupRoute
   MenuRoute: typeof MenuRoute
   SoloRoute: typeof SoloRoute
+  RoomIndexRoute: typeof RoomIndexRoute
+  RoomRoomRoomIdRoute: typeof RoomRoomRoomIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,13 +95,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenuRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/group': {
-      id: '/group'
-      path: '/group'
-      fullPath: '/group'
-      preLoaderRoute: typeof GroupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -99,14 +102,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/room/': {
+      id: '/room/'
+      path: '/room'
+      fullPath: '/room/'
+      preLoaderRoute: typeof RoomIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/room/room/$roomId': {
+      id: '/room/room/$roomId'
+      path: '/room/room/$roomId'
+      fullPath: '/room/room/$roomId'
+      preLoaderRoute: typeof RoomRoomRoomIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  GroupRoute: GroupRoute,
   MenuRoute: MenuRoute,
   SoloRoute: SoloRoute,
+  RoomIndexRoute: RoomIndexRoute,
+  RoomRoomRoomIdRoute: RoomRoomRoomIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

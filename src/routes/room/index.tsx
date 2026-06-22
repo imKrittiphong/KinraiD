@@ -1,12 +1,16 @@
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { ArrowLeft } from "lucide-react"
+import { useState } from "react"
 
-export const Route = createFileRoute("/group")({
+export const Route = createFileRoute("/room/")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const [name, setName] = useState("")
+
   return (
     <div className="min-h-svh animate-accordion-up bg-linear-to-b from-background to-muted/20 pb-20">
       <header className="sticky top-0 z-10 border-b border-border/50 bg-background/80 px-6 py-4 backdrop-blur-xl">
@@ -24,7 +28,8 @@ function RouteComponent() {
       </header>
 
       <main className="mx-auto max-w-4xl p-6">
-        <div className="animate-in bg-card p-8  duration-500 fade-in slide-in-from-top-4">
+        {/* Hero */}
+        <div className="animate-in rounded-3xl border bg-card p-8 shadow-sm duration-500 fade-in slide-in-from-top-4">
           <div className="flex flex-col items-center text-center">
             <div className="mb-4 text-6xl">🍽️</div>
 
@@ -34,21 +39,27 @@ function RouteComponent() {
               พอกันกับอะไรก็ได้ ส่งลิงก์นี้ให้เพื่อนแล้วมาร่วมชะตากรรมไปพร้อมกัน
             </p>
 
-            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <Button
-                size="lg"
-                className="h-16 shadow-xl shadow-primary/20 w-full rounded-3xl border-2 px-10 text-xl font-semibold transition-all hover:scale-105 active:scale-95"
-              >
-                คัดลอกลิงก์
-              </Button>
-
-              <Button
-                variant="outline"
-                size="lg"
-                className="h-16 w-full rounded-3xl border-2 px-10 text-xl font-semibold transition-all hover:scale-105 hover:bg-muted/50 active:scale-95"
-              >
-                แชร์ทันที
-              </Button>
+            <div className="mt-8 w-full max-w-md space-y-4">
+              <div className="space-y-2 text-left">
+                <label className="text-sm font-medium">ชื่อของคุณ</label>
+                <Input
+                  placeholder="เช่น สมชาย"
+                  className="h-12 rounded-xl"
+                  maxLength={10}
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <Link to="/room/room/$roomId" params={{ roomId: "123456" }} search={{ownerName: name}}>
+                <Button
+                  size="lg"
+                  className="h-14 w-full rounded-2xl text-lg font-semibold shadow-lg shadow-primary/20"
+                  disabled={!name}
+                >
+                  เริ่มสร้างห้อง
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
