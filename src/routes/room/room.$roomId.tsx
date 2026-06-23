@@ -1,11 +1,14 @@
 // route: /room/room/$roomId
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router"
+import { createFileRoute, Link, redirect } from "@tanstack/react-router"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
-import { getRoomMembers, joinRoom } from "@/server/room"
+import { getRoomMembers, joinRoom, startSelecting } from "@/server/room"
+import FoodTypeSelection from "@/components/room/FoodTypeSelection"
+import ResultScreen from "@/components/room/ResultScreen"
+import RandomFoodLoad from "@/components/room/RandomFoodLoad"
 
 export const Route = createFileRoute("/room/room/$roomId")({
   component: RouteComponent,
@@ -118,13 +121,41 @@ function RoomLobby({
     refetchInterval: 2000,
   })
 
-  if (isLoading) {
+  if (isLoading)
     return <p className="p-6 text-center text-muted-foreground">กำลังโหลด...</p>
-  }
 
   const members = data?.members ?? []
   const isHost =
     members.find((m) => String(m.id) === ownMemberId)?.isHost ?? false
+  const token = sessionStorage.getItem(`room:${roomId}:token`) ?? ""
+
+  // ทุกคน (ไม่ใช่แค่ host) จะถูกเด้งไปหน้าเลือกประเภท ทันทีที่ status เปลี่ยน
+  if (data?.status === "SELECTING") {
+    return (
+      <FoodTypeSelection
+        roomId={roomId}
+        ownMemberId={ownMemberId}
+        isHost={isHost}
+      />
+    )
+  }
+
+  if (data?.status === "RANDOMIZING") {
+    return <RandomFoodLoad />
+  } 
+
+  if (data?.status === "DONE" && data.result) {
+    return <ResultScreen result={data.result} />
+  }
+
+
+  const handleStart = async () => {
+    try {
+      await startSelecting({ data: { roomId, token } })
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "เริ่มไม่สำเร็จ")
+    }
+  }
 
   return (
     <div>
@@ -186,6 +217,7 @@ function RoomLobby({
               size="lg"
               className="h-16 w-full rounded-2xl text-xl font-bold shadow-lg shadow-primary/20"
               disabled={!isHost}
+              onClick={handleStart}
             >
               🎲 เริ่มสุ่มเมนู
             </Button>
