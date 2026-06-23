@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import newLogo from "../assets/kinraiDe-logo.svg"
 
 import appCss from "../styles.css?url"
+import { QueryClientProvider,QueryClient } from "@tanstack/react-query"
+import React, { useState } from "react"
 
 export const Route = createRootRoute({
   head: () => ({
@@ -42,12 +44,15 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const [queryClient] = React.useState(() => new QueryClient())
   return (
+    
     <html lang="en">
       <head>
         <HeadContent />
       </head>
       <body>
+        <QueryClientProvider client={queryClient}>
         {children}
         <TanStackDevtools
           config={{
@@ -60,6 +65,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             },
           ]}
         />
+        </QueryClientProvider>
         <Scripts />
       </body>
     </html>
