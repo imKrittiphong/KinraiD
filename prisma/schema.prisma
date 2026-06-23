@@ -13,17 +13,55 @@ datasource db {
 }
 
 model FoodType {
-  id    Int        @id @default(autoincrement())
-  type  String     @unique
-  label String
-  foods FoodItem[]
+  id          Int          @id @default(autoincrement())
+  type        String       @unique
+  label       String
+  foods       FoodItem[]
+  roomMembers RoomMember[]
 }
 
 model FoodItem {
-  id      Int      @id @default(autoincrement())
-  name    String
-  price   Int
-  typeId  Int
-  type    FoodType @relation(fields: [typeId], references: [id])
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     Int
+  typeId    Int
+  type      FoodType @relation(fields: [typeId], references: [id])
   createdAt DateTime @default(now())
+  rooms     Room[]
+}
+
+model Room {
+  id        Int        @id @default(autoincrement())
+  roomId    String     @unique @default(uuid()) @map("room_id")
+  roomName  String     @map("room_name")
+  section   String
+  token     String
+  status    RoomStatus @default(LOBBY)
+  createdAt DateTime   @default(now()) @map("created_at")
+  expiresAt DateTime   @map("expires_at")
+
+  resultFoodItemId Int?         @map("result_food_item_id")
+  resultFoodItem   FoodItem?    @relation(fields: [resultFoodItemId], references: [id])
+  members          RoomMember[]
+
+  @@map("rooms")
+}
+
+model RoomMember {
+  id             Int       @id @default(autoincrement())
+  roomId         Int       @map("room_id")
+  room           Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  nickname       String
+  isHost         Boolean   @default(false) @map("is_host")
+  selectedTypeId Int?      @map("selected_type_id")
+  selectedType   FoodType? @relation(fields: [selectedTypeId], references: [id])
+  joinedAt       DateTime  @default(now()) @map("joined_at")
+
+  @@map("room_members")
+}
+
+enum RoomStatus {
+  LOBBY
+  RANDOMIZING
+  DONE
 }
